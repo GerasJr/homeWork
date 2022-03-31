@@ -9,32 +9,33 @@ namespace HomeWork
         static void Main(string[] args)
         {
             string name;
-            int years;
-            string place;
+            int age;
+            int maxBabyAge = 5;
+            string home;
 
             Console.WriteLine("Как вас зовут?");
             name = Console.ReadLine();
 
             Console.WriteLine("Сколько вам лет?");
-            years = Convert.ToInt32(Console.ReadLine());
+            age = Convert.ToInt32(Console.ReadLine());
 
             Console.WriteLine("Где вы живете?");
-            place = Console.ReadLine();
+            home = Console.ReadLine();
 
             Console.WriteLine("");
 
             Console.WriteLine("Вы " + name + ".");
-            if(years == 1)
+            if(age == 1)
             {
-                Console.WriteLine("Вам " + years + " год, и вы живете " + place);
+                Console.WriteLine("Вам " + age + " год, и вы живете " + home);
             }
-            else if(years > 1 && years < 5)
+            else if(age > 1 && age < maxBabyAge)
             {
-                Console.WriteLine("Вам " + years + " года, и вы живете " + place);
+                Console.WriteLine("Вам " + age + " года, и вы живете " + home);
             }
             else
             {
-                Console.WriteLine("Вам " + years + " лет, и вы живете " + place);
+                Console.WriteLine("Вам " + age + " лет, и вы живете " + home);
             }
         }
     }

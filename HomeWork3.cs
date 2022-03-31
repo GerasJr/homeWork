@@ -15,16 +15,13 @@ namespace HomeWork
 
             Console.WriteLine("Как вас зовут?");
             name = Console.ReadLine();
-
             Console.WriteLine("Сколько вам лет?");
             age = Convert.ToInt32(Console.ReadLine());
-
             Console.WriteLine("Где вы живете?");
             home = Console.ReadLine();
-
             Console.WriteLine("");
-
             Console.WriteLine("Вы " + name + ".");
+
             if(age == 1)
             {
                 Console.WriteLine("Вам " + age + " год, и вы живете " + home);

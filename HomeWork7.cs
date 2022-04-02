@@ -11,15 +11,17 @@ namespace magaz
             int buyRate = 150;
             int saleRate = 140;
             int confirmationButton = 0;
+            bool isTrade = true;
 
             Console.WriteLine("Здесь вы можете купить или продать кристалы за золотые монеты.");
 
-            while (true)
+            while (isTrade)
             {
                 Console.WriteLine("У вас " + gold + " золота и " + crystals + " кристалов.");
                 Console.WriteLine("Курс покупки - " + buyRate + ", продажи - " + saleRate);
                 Console.WriteLine("Что бы купить кристалы введите 1");
                 Console.WriteLine("Что бы продать введите 2");
+                Console.WriteLine("Что бы выйти из торговли введите 3");
                 confirmationButton = Convert.ToInt32(Console.ReadLine());
 
                 if (confirmationButton == 1)
@@ -44,11 +46,13 @@ namespace magaz
                         Console.WriteLine("У вас нет столько золота");
                         Return();
                     }
+
                     if (confirmationButton == 2)
                     {
                         Return();
                     }
                 }
+
                 if (confirmationButton == 2)
                 {
                     Console.WriteLine("Введите число кристалов которое вы хотите продать");
@@ -71,6 +75,16 @@ namespace magaz
                         Console.WriteLine("У вас нет столько кристалов");
                         Return();
                     }
+                }
+
+                if(confirmationButton == 3)
+                {
+                    isTrade = false;
+                    Console.WriteLine("Вы завершили торговлю.");
+                    Console.WriteLine("Всего золота - " + gold);
+                    Console.WriteLine("Всего кристалов - " + crystals);
+
+                    Return();
                 }
             }
 

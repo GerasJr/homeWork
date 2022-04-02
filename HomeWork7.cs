@@ -13,13 +13,15 @@ namespace magaz
             int confirmationButton = 0;
 
             Console.WriteLine("Здесь вы можете купить или продать кристалы за золотые монеты.");
-            for (int i = 0; i < 100000; i++)
+
+            while (true)
             {
                 Console.WriteLine("У вас " + gold + " золота и " + crystals + " кристалов.");
                 Console.WriteLine("Курс покупки - " + buyRate + ", продажи - " + saleRate);
                 Console.WriteLine("Что бы купить кристалы введите 1");
                 Console.WriteLine("Что бы продать введите 2");
                 confirmationButton = Convert.ToInt32(Console.ReadLine());
+
                 if (confirmationButton == 1)
                 {
                     Console.WriteLine("Введите число кристалов которое вы хотите приобрести");
@@ -30,6 +32,7 @@ namespace magaz
                     Console.WriteLine("Для подтверждения введите 1");
                     Console.WriteLine("Для отказа введите 2");
                     confirmationButton = Convert.ToInt32(Console.ReadLine());
+
                     if (confirmationButton == 1 && gold >= price)
                     {
                         gold = gold - price;
@@ -41,7 +44,10 @@ namespace magaz
                         Console.WriteLine("У вас нет столько золота");
                         Return();
                     }
-                    if (confirmationButton == 2) { confirmationButton = 0; }
+                    if (confirmationButton == 2)
+                    {
+                        Return();
+                    }
                 }
                 if (confirmationButton == 2)
                 {
@@ -53,6 +59,7 @@ namespace magaz
                     Console.WriteLine("Для подтверждения введите 1");
                     Console.WriteLine("Для отказа введите 2");
                     confirmationButton = Convert.ToInt32(Console.ReadLine());
+
                     if(confirmationButton == 1 && crystals >= saleCount)
                     {
                         crystals = crystals - saleCount;
@@ -66,6 +73,7 @@ namespace magaz
                     }
                 }
             }
+
             void Return()
             {
                 confirmationButton = 0;

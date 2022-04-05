@@ -24,15 +24,15 @@ namespace HomeWork
 
             if(age == 1)
             {
-                Console.WriteLine("Вам " + age + " год, и вы живете " + home);
+                Console.WriteLine($"Вам {age} год, и вы живете {home}");
             }
             else if(age > 1 && age < maxBabyAge)
             {
-                Console.WriteLine("Вам " + age + " года, и вы живете " + home);
+                Console.WriteLine($"Вам {age} года, и вы живете {home}");
             }
             else
             {
-                Console.WriteLine("Вам " + age + " лет, и вы живете " + home);
+                Console.WriteLine($"Вам {age} лет, и вы живете {home}");
             }
         }
     }

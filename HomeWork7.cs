@@ -13,7 +13,6 @@ namespace magaz
             int confirmationButton = 0;
 
             Console.WriteLine("Здесь вы можете купить или продать кристалы за золотые монеты.");
-
             Console.WriteLine("У вас " + gold + " золота и " + crystals + " кристалов.");
             Console.WriteLine("Курс покупки - " + buyRate + ", продажи - " + saleRate);
             Console.WriteLine("Что бы купить кристалы введите 1");

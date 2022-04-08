@@ -11,87 +11,58 @@ namespace magaz
             int buyRate = 150;
             int saleRate = 140;
             int confirmationButton = 0;
-            bool isTrade = true;
 
             Console.WriteLine("Здесь вы можете купить или продать кристалы за золотые монеты.");
 
-            while (isTrade)
+            Console.WriteLine("У вас " + gold + " золота и " + crystals + " кристалов.");
+            Console.WriteLine("Курс покупки - " + buyRate + ", продажи - " + saleRate);
+            Console.WriteLine("Что бы купить кристалы введите 1");
+            Console.WriteLine("Что бы продать введите 2");
+            confirmationButton = Convert.ToInt32(Console.ReadLine());
+
+            if (confirmationButton == 1)
             {
-                Console.WriteLine("У вас " + gold + " золота и " + crystals + " кристалов.");
-                Console.WriteLine("Курс покупки - " + buyRate + ", продажи - " + saleRate);
-                Console.WriteLine("Что бы купить кристалы введите 1");
-                Console.WriteLine("Что бы продать введите 2");
-                Console.WriteLine("Что бы выйти из торговли введите 3");
+                Console.WriteLine("Введите число кристалов которое вы хотите приобрести");
+                int buyCount = Convert.ToInt32(Console.ReadLine());
+                int price = buyCount * buyRate;
+                Console.WriteLine("Вы хотите купить " + buyCount + " кристалов");
+                Console.WriteLine("Это будет стоить " + price + " золотых монет");
+                Console.WriteLine("Для подтверждения введите 1");
+                Console.WriteLine("Для отказа введите 2");
                 confirmationButton = Convert.ToInt32(Console.ReadLine());
 
-                if (confirmationButton == 1)
+                if (confirmationButton == 1 && gold >= price)
                 {
-                    Console.WriteLine("Введите число кристалов которое вы хотите приобрести");
-                    int buyCount = Convert.ToInt32(Console.ReadLine());
-                    int price = buyCount * buyRate;
-                    Console.WriteLine("Вы хотите купить " + buyCount + " кристалов");
-                    Console.WriteLine("Это будет стоить " + price + " золотых монет");
-                    Console.WriteLine("Для подтверждения введите 1");
-                    Console.WriteLine("Для отказа введите 2");
-                    confirmationButton = Convert.ToInt32(Console.ReadLine());
-
-                    if (confirmationButton == 1 && gold >= price)
-                    {
-                        gold = gold - price;
-                        crystals = crystals + buyCount;
-                        Return();
-                    }
-                    else
-                    {
-                        Console.WriteLine("У вас нет столько золота");
-                        Return();
-                    }
-
-                    if (confirmationButton == 2)
-                    {
-                        Return();
-                    }
+                    gold = gold - price;
+                    crystals = crystals + buyCount;
                 }
-
-                if (confirmationButton == 2)
+                else
                 {
-                    Console.WriteLine("Введите число кристалов которое вы хотите продать");
-                    int saleCount = Convert.ToInt32(Console.ReadLine());
-                    int profitCount = saleCount * saleRate;
-                    Console.WriteLine("Вы хотите продать " + saleCount + " кристалов");
-                    Console.WriteLine("Вы получите " + profitCount + " золотых монет");
-                    Console.WriteLine("Для подтверждения введите 1");
-                    Console.WriteLine("Для отказа введите 2");
-                    confirmationButton = Convert.ToInt32(Console.ReadLine());
-
-                    if(confirmationButton == 1 && crystals >= saleCount)
-                    {
-                        crystals = crystals - saleCount;
-                        gold = gold + profitCount;
-                        Return();
-                    }
-                    else
-                    {
-                        Console.WriteLine("У вас нет столько кристалов");
-                        Return();
-                    }
-                }
-
-                if(confirmationButton == 3)
-                {
-                    isTrade = false;
-                    Console.WriteLine("Вы завершили торговлю.");
-                    Console.WriteLine("Всего золота - " + gold);
-                    Console.WriteLine("Всего кристалов - " + crystals);
-
-                    Return();
+                    Console.WriteLine("У вас нет столько золота");
                 }
             }
-
-            void Return()
+            else if (confirmationButton == 2)
             {
-                confirmationButton = 0;
+                Console.WriteLine("Введите число кристалов которое вы хотите продать");
+                int saleCount = Convert.ToInt32(Console.ReadLine());
+                int profitCount = saleCount * saleRate;
+                Console.WriteLine("Вы хотите продать " + saleCount + " кристалов");
+                Console.WriteLine("Вы получите " + profitCount + " золотых монет");
+                Console.WriteLine("Для подтверждения введите 1");
+                Console.WriteLine("Для отказа введите 2");
+                confirmationButton = Convert.ToInt32(Console.ReadLine());
+
+                if (confirmationButton == 1 && crystals >= saleCount)
+                {
+                    crystals = crystals - saleCount;
+                    gold = gold + profitCount;
+                }
+                else
+                {
+                    Console.WriteLine("У вас нет столько кристалов");
+                }
             }
+            Console.WriteLine("У вас " + gold + " золота и " + crystals + " кристалов.");
         }
     }   
 }

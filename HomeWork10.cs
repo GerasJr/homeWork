@@ -16,6 +16,7 @@ namespace HomeWork_10
                 Console.WriteLine($"Цикл - {cycleNumber}, что бы остановить цикл введите *{stopWord}*");
                 userInput = Console.ReadLine();
             }
+
             Console.WriteLine("Цикл завершен");
         }
     }

@@ -12,9 +12,8 @@ namespace _12667
 
             Console.WriteLine(number);
 
-            while (number != finishNumber)
+            for(number; number != finishNumber; number += numberRise)
             {
-                number += numberRise;
                 Console.WriteLine(number);
             }
         }

@@ -7,13 +7,14 @@ namespace HomeWork_10
         static void Main(string[] args)
         {
             int cycleNumber = 0;
-            string stopWord = "0";
+            string stopWord = "exit";
+            string userInput;
 
-            while (stopWord != "exit")
+            while (userInput != stopWord)
             {
                 ++cycleNumber;
-                Console.WriteLine($"Цикл - {cycleNumber}, что бы остановить цикл введите *exit*");
-                stopWord = Console.ReadLine();
+                Console.WriteLine($"Цикл - {cycleNumber}, что бы остановить цикл введите *{stopWord}*");
+                userInput = Console.ReadLine();
             }
             Console.WriteLine("Цикл завершен");
         }

@@ -6,18 +6,20 @@ namespace y4yc
     {
         public static void Main(string[] args)
         {
-            int number;
-            Random random = new Random();
+            Random randomNumber = new Random();
+            int multiplicityFive = 5;
+            int multiplicityThree = 3;
+            int amount = 0;
 
-            number = random.Next(0, 101);
-
-            for(int i = number; i > 0; i--)
+            for(int i = randomNumber.Next(0, 101); i > 0; i--)
             {
-                if(i % 3 == 0 || i % 5 == 0)
+                if(i % multiplicityThree == 0 || i % multiplicityFive == 0)
                 {
-                    Console.WriteLine(i);
+                    amount += i;
                 }
             }
+
+            Console.WriteLine(amount);
         }
     }
 }

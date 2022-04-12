@@ -48,8 +48,10 @@ namespace _2222
                 else if(command == "randomNumber")
                 {
                     int number;
+                    int minValue = 0;
+                    int maxValue = 1000000000;
                     Random random = new Random();
-                    number = random.Next(0, 1000000000);
+                    number = random.Next(minValue, maxValue);
                     Console.WriteLine(number);
                 }
                 else if(command == "fckYou" || command == "fuckYou")

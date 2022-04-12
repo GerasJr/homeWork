@@ -8,6 +8,8 @@ namespace _2222
         {
             bool isWorking = true;
             string command;
+            int minValue = 0;
+            int maxValue = 1000000000;
 
             Console.WriteLine("Добро пожаловать в консоль");
             Console.WriteLine("Для получения списка всех команд введите help");
@@ -21,7 +23,7 @@ namespace _2222
                 {
                     Console.WriteLine("consoleClear - Очистка консоли");
                     Console.WriteLine("createCycle - Создать цикл");
-                    Console.WriteLine("randomNumber - Создать случайное целое число (от 0 до 1 000 000 000)");
+                    Console.WriteLine($"randomNumber - Создать случайное целое число (от {minValue} до {maxValue})");
                     Console.WriteLine("fckYou - Послать консоль куда подальше");
                     Console.WriteLine("help - Список всех команд");
                     Console.WriteLine("break - Завершить работу консоли");
@@ -48,8 +50,6 @@ namespace _2222
                 else if(command == "randomNumber")
                 {
                     int number;
-                    int minValue = 0;
-                    int maxValue = 1000000000;
                     Random random = new Random();
                     number = random.Next(minValue, maxValue);
                     Console.WriteLine(number);

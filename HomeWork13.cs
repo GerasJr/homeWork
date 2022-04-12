@@ -36,56 +36,68 @@ namespace ConsoleApp2
                 switch (userInput)
                 {
                     case 1:
+
                         if (usd < convertAmount)
                         {
                             Console.WriteLine("У вас нету столько долларов");
                             break;
                         }
+
                         rub = rub + usdToRub * convertAmount;
                         usd -= convertAmount;
                         break;
                     case 2:
+
                         if (usd < convertAmount)
                         {
                             Console.WriteLine("У вас нету столько долларов");
                             break;
                         }
+
                         eur = eur + usdToEur * convertAmount;
                         usd -= convertAmount;
                         break;
                     case 3:
+
                         if(eur < convertAmount)
                         {
                             Console.WriteLine("У вас нету столько евро");
                             break;
                         }
+
                         rub = rub + eurToRub * convertAmount;
                         eur -= convertAmount;
                         break;
                     case 4:
+
                         if (eur < convertAmount)
                         {
                             Console.WriteLine("У вас нету столько евро");
                             break;
                         }
+
                         usd = usd + eurToUsd * convertAmount;
                         eur -= convertAmount;
                         break;
                     case 5:
+
                         if(rub < convertAmount)
                         {
                             Console.WriteLine("У вас нету столько рублей");
                             break;
                         }
+
                         usd = usd + rubToUsd * convertAmount;
                         rub -= convertAmount;
                         break;
                     case 6:
+
                         if (rub < convertAmount)
                         {
                             Console.WriteLine("У вас нету столько рублей");
                             break;
                         }
+
                         eur = eur + rubToEur * convertAmount;
                         rub -= convertAmount;
                         break;

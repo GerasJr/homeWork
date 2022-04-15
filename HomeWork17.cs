@@ -10,8 +10,9 @@ namespace hm17
             int numbersMultiplesN;
             int minRangeN = 1;
             int maxRangeN = 27;
-            int maxValue = 999;
+            int maxValue = 1000;
             int minValue = 100;
+            int multiplesAmount;
             Random rangeOfN = new Random();
 
             numberN = rangeOfN.Next(minRangeN, maxRangeN);
@@ -23,9 +24,10 @@ namespace hm17
 
                 if(numbersMultiplesN >= minValue && numbersMultiplesN <= maxValue)
                 {
-                    Console.WriteLine(numbersMultiplesN);
+                    multiplesAmount++;
                 }
             }
+            Console.WriteLine(multiplesAmount);
         }
     }
 }

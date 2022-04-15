@@ -12,9 +12,9 @@ namespace hm17
             int maxRangeN = 27;
             int maxValue = 1000;
             int minValue = 100;
-            int multiplesAmount;
+            int multiplesAmount = 0;
             Random rangeOfN = new Random();
-
+            
             numberN = rangeOfN.Next(minRangeN, maxRangeN);
             numbersMultiplesN = numberN;
 

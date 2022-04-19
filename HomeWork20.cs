@@ -6,7 +6,7 @@ namespace hm20
     {
         static void Main(string[] args)
         {
-            int playerHp = 200;
+            int playerHp = 250;
             int shield = 300;
             int energy = 100;
             int maxEnergy = 100;
@@ -16,7 +16,7 @@ namespace hm20
             int highBlowDamage = 200;
             int lightEnergyCost = 25;
             int highEnergyCost = 50;
-            int energyFill = 50;
+            int energyFill = 75;
             int playerHpFill = 250;
             int lightBossDamage = 75;
             int highBossDamage = 150;
@@ -38,7 +38,7 @@ namespace hm20
                 Console.WriteLine($"Здоровье гиганта: {bossHp}");
                 Console.WriteLine("Выберите действие:");
                 Console.WriteLine($"1 - Легкий удар мечом (-{lightEnergyCost} энергии)");
-                Console.WriteLine($"2 - Сильный удар мечом (-{highEnergyCost} энергии)");
+                Console.WriteLine($"2 - Сильный удар мечом (-{highEnergyCost} энергии) (При условии что щит полностью сломан)");
                 Console.WriteLine("3 - Отступить");
                 userInput = Console.ReadLine();
 
@@ -58,11 +58,16 @@ namespace hm20
                         }
                         break;
                     case "2":
-                        if(energy >= highEnergyCost)
+                        if(energy >= highEnergyCost && shield <= 0)
                         {
                             bossHp -= highBlowDamage;
                             energy -= highEnergyCost;
                             Console.WriteLine($"Вы наносите удар гиганту в {highBlowDamage} урона");
+                        }
+                        else if(energy >= highEnergyCost && shield > 0)
+                        {
+                            playerHp -= lightBossDamage;
+                            Console.WriteLine($"Одной рукой сильный удар не проведешь, гигант наносит вам {lightBossDamage} урона");
                         }
                         else
                         {

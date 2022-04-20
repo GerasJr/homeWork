@@ -20,7 +20,7 @@ namespace hm_23
             Console.WriteLine("\n");
             Console.WriteLine("Локальные максимумы:");
 
-            for(int i = 1; i < array.Length - 1; i++)
+            for(int i = 0; i < array.Length; i++)
             {
                 previousElement = array[i - 1];
                 nextElement = array[i + 1];

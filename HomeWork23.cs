@@ -7,8 +7,8 @@ namespace hm_23
         static void Main(string[] args)
         {
             int[] array = new int[30];
-            int leftElement;
-            int rightElement;
+            int previousElement;
+            int nextElement;
             Random random = new Random();
 
             for(int i = 0; i < array.Length; i++)
@@ -20,17 +20,12 @@ namespace hm_23
             Console.WriteLine("\n");
             Console.WriteLine("Локальные максимумы:");
 
-            for(int i = 0; i < array.Length; i++)
+            for(int i = 1; i < array.Length - 1; i++)
             {
-                if(i == 0 || i == array.Length - 1)
-                {
-                    continue;
-                }
+                previousElement = array[i - 1];
+                nextElement = array[i + 1];
 
-                leftElement = array[i - 1];
-                rightElement = array[i + 1];
-
-                if(leftElement < array[i] && rightElement < array[i])
+                if(previousElement < array[i] && array[i] > nextElement)
                 {
                     Console.Write(array[i] + " ");
                 }

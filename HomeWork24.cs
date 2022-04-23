@@ -7,18 +7,32 @@ namespace hm24
         static void Main(string[] args)
         {
             int[] numbers = new int[0];
-            int[] tempNumbers = new int[0];
-            bool isCalculation = true;
+            bool isWork = true;
             string userInput;
-            int amount = 0;
 
-            while (isCalculation)
+            while (isWork)
             {
                 userInput = Console.ReadLine();
 
-                if(userInput != "sum" && userInput != "exit")
+                if(userInput == "sum")
                 {
-                    tempNumbers = new int[numbers.Length + 1];
+                    int sum = 0;
+
+                    for (int i = 0; i < numbers.Length; i++)
+                    {
+                        sum += numbers[i];
+                    }
+
+                    Console.WriteLine(sum);
+                    isWork = false;
+                }
+                else if(userInput == "exit")
+                {
+                    isWork = false;
+                }
+                else
+                {
+                    int[] tempNumbers = new int[numbers.Length + 1];
 
                     for (int i = 0; i < numbers.Length; i++)
                     {
@@ -27,20 +41,6 @@ namespace hm24
 
                     tempNumbers[tempNumbers.Length - 1] = Convert.ToInt32(userInput);
                     numbers = tempNumbers;
-                }
-                else if(userInput == "sum")
-                {
-                    for(int i = 0; i < numbers.Length; i++)
-                    {
-                        amount += numbers[i];
-                    }
-
-                    Console.WriteLine(amount);
-                    isCalculation = false;
-                }
-                else if(userInput == "exit")
-                {
-                    isCalculation = false;
                 }
             }
         }

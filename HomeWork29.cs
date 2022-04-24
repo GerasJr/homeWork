@@ -84,13 +84,13 @@ namespace hm29
                 {
                     if(i < numberToDelete)
                     {
-                        tempFullName[i] = fullName[i];
-                        tempPost[i] = post[i];
+                        DossierArrayDelete(tempFullName, fullName, i);
+                        DossierArrayDelete(tempPost, post, i);
                     }
                     else
                     {
-                        tempFullName[i] = fullName[i + 1];
-                        tempPost[i] = post[i + 1];
+                        DossierArrayDelete(tempFullName, fullName, i, 1);
+                        DossierArrayDelete(tempPost, post, i, 1);
                     }
                 }
 
@@ -102,6 +102,11 @@ namespace hm29
             {
                 Console.WriteLine("Такого досье не найдено");
             }
+        }
+
+        static void DossierArrayDelete(string[] tempArray, string[] array, int index, int indexAfterDelite = 0)
+        {
+            tempArray[index] = array[index + indexAfterDelite];
         }
 
         static void FindDossier(string[] fullName, string[] post)
@@ -126,7 +131,7 @@ namespace hm29
                 }
             }
 
-            if(!isFind)
+            if(isFind == false)
             {
                 Console.WriteLine("Таких досье не найдено");
             }

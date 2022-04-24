@@ -80,18 +80,8 @@ namespace hm29
 
             if(numberToDelete < fullName.Length)
             {
-                for (int i = 0; i < fullName.Length - 1; i++)
-                {
-                    if(i < numberToDelete)
-                    {
-                        DossierArrayDelete(tempFullName, tempPost, fullName, post, i);
-                    }
-                    else
-                    {
-                        DossierArrayDelete(tempFullName, tempPost, fullName, post, i, 1);
-                    }
-                }
-
+                DossierArrayDelete(tempFullName, fullName, numberToDelete);
+                DossierArrayDelete(tempPost, post, numberToDelete);
                 Console.WriteLine($"Досье под номером {numberToDelete + 1} ({fullName[numberToDelete]} - {post[numberToDelete]}) удалено.");
                 fullName = tempFullName;
                 post = tempPost;
@@ -102,10 +92,19 @@ namespace hm29
             }
         }
 
-        static void DossierArrayDelete(string[] tempArray,string[] tempArray1, string[] array, string[] array1, int index, int indexAfterDelite = 0)
+        static void DossierArrayDelete(string[] tempArray, string[] array, int numberToDelete)
         {
-            tempArray[index] = array[index + indexAfterDelite];
-            tempArray1[index] = array1[index + indexAfterDelite];
+            for(int i = 0; i < array.Length - 1; i++)
+            {
+                if(i < numberToDelete)
+                {
+                    tempArray[i] = array[i];
+                }
+                else
+                {
+                    tempArray[i] = array[i + 1];
+                }
+            }
         }
 
         static void FindDossier(string[] fullName, string[] post)

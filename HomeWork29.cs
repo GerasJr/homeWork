@@ -84,13 +84,11 @@ namespace hm29
                 {
                     if(i < numberToDelete)
                     {
-                        DossierArrayDelete(tempFullName, fullName, i);
-                        DossierArrayDelete(tempPost, post, i);
+                        DossierArrayDelete(tempFullName, tempPost, fullName, post, i);
                     }
                     else
                     {
-                        DossierArrayDelete(tempFullName, fullName, i, 1);
-                        DossierArrayDelete(tempPost, post, i, 1);
+                        DossierArrayDelete(tempFullName, tempPost, fullName, post, i, 1);
                     }
                 }
 
@@ -104,9 +102,10 @@ namespace hm29
             }
         }
 
-        static void DossierArrayDelete(string[] tempArray, string[] array, int index, int indexAfterDelite = 0)
+        static void DossierArrayDelete(string[] tempArray,string[] tempArray1, string[] array, string[] array1, int index, int indexAfterDelite = 0)
         {
             tempArray[index] = array[index + indexAfterDelite];
+            tempArray1[index] = array1[index + indexAfterDelite];
         }
 
         static void FindDossier(string[] fullName, string[] post)

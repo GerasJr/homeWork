@@ -6,7 +6,7 @@ namespace hm29
     {
         static void Main(string[] args)
         {
-            string[] surname = new string[0];
+            string[] fullName = new string[0];
             string[] post = new string[0];
             bool isWork = true;
 
@@ -18,83 +18,84 @@ namespace hm29
 
             while (isWork)
             {
-                switch (Convert.ToInt32(Console.ReadLine()))
+                switch (Console.ReadLine())
                 {
-                    case 1:
-                        AddDossier(ref surname, ref post);
+                    case "1":
+                        AddDossier(ref fullName, ref post);
                         break;
-                    case 2:
-                        ConclusionDossier(surname, post);
+                    case "2":
+                        ConclusionDossier(fullName, post);
                         break;
-                    case 3:
-                        DeliteDossier(ref surname, ref post);
+                    case "3":
+                        DeleteDossier(ref fullName, ref post);
                         break;
-                    case 4:
-                        FindDossier(surname, post);
+                    case "4":
+                        FindDossier(fullName, post);
                         break;
-                    case 5:
+                    case "5":
                         isWork = false;
                         break;
                 }
             }
         }
 
-        static void AddDossier(ref string[] surname, ref string[] post)
+        static void AddDossier(ref string[] fullName, ref string[] post)
         {
-            string[] tempSurname = new string[surname.Length + 1];
-            string[] tempPost = new string[post.Length + 1];
-
-            for(int i = 0; i < surname.Length; i++)
-            {
-                tempSurname[i] = surname[i];
-                tempPost[i] = post[i];
-            }
-
-            Console.WriteLine("Введите фамилию");
-            tempSurname[tempSurname.Length - 1] = Console.ReadLine();
-            Console.WriteLine("Введите должность:");
-            tempPost[tempPost.Length - 1] = Console.ReadLine();
-            surname = tempSurname;
-            post = tempPost;
+            DossierArrayAdd(ref fullName, "Введите ФИО");
+            DossierArrayAdd(ref post, "Введите должность");
             Console.WriteLine("Досье успешно добавлено.");
         }
 
-        static void ConclusionDossier(string[] surname, string[] post)
+        static void DossierArrayAdd(ref string[] array, string WriteLine)
+        {
+            string[] tempArray = new string[array.Length + 1];
+
+            for (int i = 0; i < array.Length; i++)
+            {
+                tempArray[i] = array[i];
+            }
+
+            Console.WriteLine(WriteLine);
+            tempArray[tempArray.Length - 1] = Console.ReadLine();
+            array = tempArray;
+        }
+
+        static void ConclusionDossier(string[] fullName, string[] post)
         {
             Console.WriteLine("Все досье:");
 
-            for(int i = 0; i < surname.Length; i++)
+            for(int i = 0; i < fullName.Length; i++)
             {
-                Console.WriteLine($"{i + 1}: {surname[i]} - {post[i]}");
+                Console.WriteLine($"{i + 1}: {fullName[i]} - {post[i]}");
             }
         }
 
-        static void DeliteDossier(ref string[] surname, ref string[] post)
+        static void DeleteDossier(ref string[] fullName, ref string[] post)
         {
-            string[] tempSurname = new string[surname.Length - 1];
+            string[] tempFullName = new string[fullName.Length - 1];
             string[] tempPost = new string[post.Length - 1];
 
             Console.WriteLine("Введите номер досье которого хотите удалить");
-            int numberToDelite = Convert.ToInt32(Console.ReadLine()) - 1;
+            int numberToDelete = Convert.ToInt32(Console.ReadLine()) - 1;
 
-            if(numberToDelite < surname.Length)
+            if(numberToDelete < fullName.Length)
             {
-                for (int i = 0; i < surname.Length - 1; i++)
+                for (int i = 0; i < fullName.Length - 1; i++)
                 {
-                    if(i < numberToDelite)
+                    if(i < numberToDelete)
                     {
-                        tempSurname[i] = surname[i];
+                        tempFullName[i] = fullName[i];
                         tempPost[i] = post[i];
                     }
                     else
                     {
-                        tempSurname[i] = surname[i + 1];
+                        tempFullName[i] = fullName[i + 1];
                         tempPost[i] = post[i + 1];
                     }
                 }
 
-                Console.WriteLine($"Досье под номером {numberToDelite + 1} ({surname[numberToDelite]} - {post[numberToDelite]}) удалено.");
-                surname = tempSurname;
+                Console.WriteLine($"Досье под номером {numberToDelete + 1} ({fullName[numberToDelete]} - {post[numberToDelete]}) удалено.");
+                fullName = tempFullName;
                 post = tempPost;
             }
             else
@@ -103,27 +104,31 @@ namespace hm29
             }
         }
 
-        static void FindDossier(string[] surname, string[] post)
+        static void FindDossier(string[] fullName, string[] post)
         {
             string findSurname;
-            bool isFind = true;
+            bool isFind = false;
 
             Console.WriteLine("Введите Фамилию:");
             findSurname = Console.ReadLine();
 
-            for(int i = 0; i < surname.Length; i++)
+            for(int i = 0; i < fullName.Length; i++)
             {
-                if(surname[i] == findSurname)
+                string[] arrayFullName = fullName[i].Split(' ');
+
+                foreach(string name in arrayFullName)
                 {
-                    Console.WriteLine($"Найдено досье под номером {i + 1}: {surname[i]} - {post[i]}");
-                    isFind = true;
-                    break;
+                    if (name == findSurname)
+                    {
+                        Console.WriteLine($"Найдено досье под номером {i + 1}: {fullName[i]} - {post[i]}");
+                        isFind = true;
+                    }
                 }
             }
 
             if(!isFind)
             {
-
+                Console.WriteLine("Таких досье не найдено");
             }
         }
     }

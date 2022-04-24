@@ -35,6 +35,9 @@ namespace hm29
                     case "5":
                         isWork = false;
                         break;
+                    default:
+                        Console.WriteLine("Неизвестная команда");
+                        break;
                 }
             }
         }
@@ -72,19 +75,14 @@ namespace hm29
 
         static void DeleteDossier(ref string[] fullName, ref string[] post)
         {
-            string[] tempFullName = new string[fullName.Length - 1];
-            string[] tempPost = new string[post.Length - 1];
-
             Console.WriteLine("Введите номер досье которого хотите удалить");
             int numberToDelete = Convert.ToInt32(Console.ReadLine()) - 1;
 
             if(numberToDelete < fullName.Length)
             {
-                DossierArrayDelete(tempFullName, fullName, numberToDelete);
-                DossierArrayDelete(tempPost, post, numberToDelete);
-                Console.WriteLine($"Досье под номером {numberToDelete + 1} ({fullName[numberToDelete]} - {post[numberToDelete]}) удалено.");
-                fullName = tempFullName;
-                post = tempPost;
+                DossierArrayDelete(ref fullName, numberToDelete);
+                DossierArrayDelete(ref post, numberToDelete);
+                Console.WriteLine($"Досье под номером {numberToDelete + 1} удалено.");
             }
             else
             {
@@ -92,8 +90,10 @@ namespace hm29
             }
         }
 
-        static void DossierArrayDelete(string[] tempArray, string[] array, int numberToDelete)
+        static void DossierArrayDelete(ref string[] array, int numberToDelete)
         {
+            string[] tempArray = new string[array.Length - 1];
+
             for(int i = 0; i < array.Length - 1; i++)
             {
                 if(i < numberToDelete)
@@ -105,6 +105,8 @@ namespace hm29
                     tempArray[i] = array[i + 1];
                 }
             }
+
+            array = tempArray;
         }
 
         static void FindDossier(string[] fullName, string[] post)

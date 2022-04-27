@@ -14,7 +14,7 @@ namespace hm30
             int fullGrid = 10;
             float fullness;
 
-            fullness = percent / 10;
+            fullness = percent / fullGrid;
             Console.Write("[");
 
             for(int i = 0; i < fullGrid; i++)

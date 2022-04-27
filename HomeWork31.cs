@@ -6,21 +6,21 @@ namespace hm31
     {
         static void Main(string[] args)
         {
-            Conversion();
+            ReadInt();
         }
 
-        static int Conversion()
+        static int ReadInt()
         {
-            bool success = false;
+            bool isSuccess = false;
             int result = 0;
 
-            while (success == false)
+            while (isSuccess == false)
             {
                 Console.WriteLine("Введите число которое хотите сконвертировать");
-                string number = Console.ReadLine();
-                success = int.TryParse(number, out result);
+                string userInput = Console.ReadLine();
+                isSuccess = int.TryParse(userInput, out result);
 
-                if(success == false)
+                if(isSuccess == false)
                 {
                     Console.WriteLine("Конвертация не удалась");
                 }

@@ -62,15 +62,14 @@ namespace hm32
         }
         static void MovePlayer(char player, ref char[,] map, ref int positionX, ref int positionY, int directionX, int directionY)
         {
-                if(map[positionX + directionX, positionY + directionY] != '#')
-                {
-                    Console.SetCursorPosition(positionY, positionX);
-                    Console.Write(' ');
-                    positionX += directionX;
-                    positionY += directionY;
-                    Console.SetCursorPosition(positionY, positionX);
-                    Console.Write(player);
-                }
+            if (map[positionX + directionX, positionY + directionY] != '#')
+            {
+                Console.SetCursorPosition(positionY, positionX);
+                Console.Write(' ');
+                positionX += directionX;
+                positionY += directionY;
+                Console.SetCursorPosition(positionY, positionX);
+                Console.Write(player);
             }
         }
     }

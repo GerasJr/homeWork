@@ -11,10 +11,37 @@ namespace hm32
             char[,] map;
             int playerPositionX = 1;
             int playerPositionY = 1;
+            bool isPlaying = true;
+            int moveDirectionX = 0;
+            int moveDirectionY = 0;
 
             Console.CursorVisible = false;
             LoadMap("map0" ,out map);
-            PlayerMove(player , ref map, ref playerPositionX, ref playerPositionY);
+
+            while (isPlaying)
+            {
+                ConsoleKeyInfo key = Console.ReadKey(true);
+
+                switch (key.Key)
+                {
+                    case ConsoleKey.W:
+                        moveDirectionX = -1;
+                        break;
+                    case ConsoleKey.A:
+                        moveDirectionY = -1;
+                        break;
+                    case ConsoleKey.S:
+                        moveDirectionX = 1;
+                        break;
+                    case ConsoleKey.D:
+                        moveDirectionY = 1;
+                        break;
+                }
+
+                MovePlayer(player, ref map, ref playerPositionX, ref playerPositionY, moveDirectionX, moveDirectionY);
+                moveDirectionX = 0;
+                moveDirectionY = 0;
+            }
         }
 
         static void LoadMap(string mapName, out char[,] map)
@@ -33,32 +60,8 @@ namespace hm32
                 Console.WriteLine();
             }
         }
-        static void PlayerMove(char player, ref char[,] map, ref int positionX, ref int positionY)
+        static void MovePlayer(char player, ref char[,] map, ref int positionX, ref int positionY, int directionX, int directionY)
         {
-            bool isPlaying = true;
-            int directionX = 0;
-            int directionY = 0;
-
-            while (isPlaying)
-            {
-                ConsoleKeyInfo key = Console.ReadKey(true);
-
-                switch (key.Key)
-                {
-                    case ConsoleKey.W:
-                        directionX = -1;
-                        break;
-                    case ConsoleKey.A:
-                        directionY = -1;
-                        break;
-                    case ConsoleKey.S:
-                        directionX = 1;
-                        break;
-                    case ConsoleKey.D:
-                        directionY = 1;
-                        break;
-                }
-
                 if(map[positionX + directionX, positionY + directionY] != '#')
                 {
                     Console.SetCursorPosition(positionY, positionX);
@@ -68,9 +71,6 @@ namespace hm32
                     Console.SetCursorPosition(positionY, positionX);
                     Console.Write(player);
                 }
-
-                directionX = 0;
-                directionY = 0;
             }
         }
     }

@@ -16,21 +16,19 @@ namespace hm33
             }
         }
 
-        static int[] Shuffle(int[] array)
+        static void Shuffle(int[] array)
         {
-            int[] tempArray = new int[array.Length];
             Random random = new Random();
 
             for(int i = 0; i < array.Length; i++)
             {
                 int randomIndex = random.Next(0, array.Length);
+                int tempNumber;
 
-                tempArray[i] = array[i];
+                tempNumber = array[i];
                 array[i] = array[randomIndex];
-                array[randomIndex] = tempArray[i];
+                array[randomIndex] = tempNumber;
             }
-
-            return array;
         }
     }
 }

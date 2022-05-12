@@ -20,29 +20,13 @@ namespace hm37
                 switch (Console.ReadLine())
                 {
                     case "1":
-                        Console.WriteLine("Введите ФИО, потом через Enter должность");
-                        dossiers.Add(Console.ReadLine(), Console.ReadLine());
-                        Console.WriteLine("Досье успешно добавлено");
+                        AddDossier(dossiers);
                         break;
                     case "2":
-                        foreach(var dossier in dossiers)
-                        {
-                            Console.WriteLine(dossier.Key + " - " + dossier.Value);
-                        }
+                        ConclusionDossier(dossiers);
                         break;
                     case "3":
-                        Console.WriteLine("Введите ФИО досье которого хотите удалить");
-                        string userInput = Console.ReadLine();
-
-                        if (dossiers.ContainsKey(userInput))
-                        {
-                            dossiers.Remove(userInput);
-                            Console.WriteLine("Досье успешно удалено");
-                        }
-                        else
-                        {
-                            Console.WriteLine("Такого досье не найдено");
-                        }
+                        DeleteDossier(dossiers);
                         break;
                     case "4":
                         isWork = false;
@@ -51,6 +35,37 @@ namespace hm37
                         Console.WriteLine("Некорректная команда");
                         break;
                 }
+            }
+        }
+
+        static void AddDossier(Dictionary<string, string> dossiers)
+        {
+            Console.WriteLine("Введите ФИО, потом через Enter должность");
+            dossiers.Add(Console.ReadLine(), Console.ReadLine());
+            Console.WriteLine("Досье успешно добавлено");
+        }
+
+        static void ConclusionDossier(Dictionary<string, string> dossiers)
+        {
+            foreach (var dossier in dossiers)
+            {
+                Console.WriteLine(dossier.Key + " - " + dossier.Value);
+            }
+        }
+
+        static void DeleteDossier(Dictionary<string, string> dossiers)
+        {
+            Console.WriteLine("Введите ФИО досье которого хотите удалить");
+            string userInput = Console.ReadLine();
+
+            if (dossiers.ContainsKey(userInput))
+            {
+                dossiers.Remove(userInput);
+                Console.WriteLine("Досье успешно удалено");
+            }
+            else
+            {
+                Console.WriteLine("Такого досье не найдено");
             }
         }
     }

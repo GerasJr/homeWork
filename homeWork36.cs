@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace hm36
 {
-    class homeWork36
+    class HomeWork36
     {
         static void Main(string[] args)
         {
@@ -37,7 +37,14 @@ namespace hm36
                 }
                 else
                 {
-                    numbers.Add(Convert.ToInt32(userInput));
+                    if(int.TryParse(userInput, out int number))
+                    {
+                        numbers.Add(Convert.ToInt32(userInput));
+                    }
+                    else
+                    {
+                        Console.WriteLine("Число или команда некорректны");
+                    }
                 }
             }
         }

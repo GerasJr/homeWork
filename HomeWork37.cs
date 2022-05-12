@@ -47,6 +47,9 @@ namespace hm37
                     case "4":
                         isWork = false;
                         break;
+                    default:
+                        Console.WriteLine("Некорректная команда");
+                        break;
                 }
             }
         }

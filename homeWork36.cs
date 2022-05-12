@@ -29,7 +29,7 @@ namespace hm36
                     }
 
                     Console.WriteLine(sum);
-                    isWork = false;
+                    numbers.Clear();
                 }
                 else if(userInput == "exit")
                 {
@@ -39,7 +39,7 @@ namespace hm36
                 {
                     if(int.TryParse(userInput, out int number))
                     {
-                        numbers.Add(Convert.ToInt32(userInput));
+                        numbers.Add(number);
                     }
                     else
                     {

@@ -9,13 +9,12 @@ namespace hm40
             Player player = new Player();
             Renderer renderer = new Renderer();
 
-            player.Symbol = '@';
             renderer.Render(player.PositionX, player.PositionY, player.Symbol);
         }
 
         public class Player
         {
-            public char Symbol;
+            public char Symbol { get; private set; } = '@';
             public int PositionX { get; private set; } = 5;
             public int PositionY { get; private set; } = 10;
         }

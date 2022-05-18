@@ -12,37 +12,37 @@ namespace hm41
 
     class Database
     {
-        private Dictionary<int, Player> players = new Dictionary<int, Player>();
         private int _minUnicueNumber = 0;
+        private Dictionary<int, Player> _players = new Dictionary<int, Player>();
 
         public void AddPlayer(string name, int level)
         {
             Player player = new Player(_minUnicueNumber, name, level);
-            players.Add(_minUnicueNumber, player);
+            _players.Add(_minUnicueNumber, player);
             _minUnicueNumber++;
         }
 
         public void BanPlayer(int unicueNumber)
         {
-            if (players.ContainsKey(unicueNumber))
+            if (_players.ContainsKey(unicueNumber))
             {
-                players[unicueNumber].IsBan = true;
+                _players[unicueNumber].Ban();
             }
         }
 
         public void UnbanPlayer(int unicueNumber)
         {
-            if (players.ContainsKey(unicueNumber))
+            if (_players.ContainsKey(unicueNumber))
             {
-                players[unicueNumber].IsBan = false;
+                _players[unicueNumber].Unban();
             }
         }
 
         public void DelitePlayer(int unicueNumber)
         {
-            if (players.ContainsKey(unicueNumber))
+            if (_players.ContainsKey(unicueNumber))
             {
-                players.Remove(unicueNumber);
+                _players.Remove(unicueNumber);
             }
         }
     }
@@ -52,14 +52,23 @@ namespace hm41
         private int _unicueNumber;
         private string _name;
         private int _level;
-        public bool IsBan;
-
+        private bool _isBan;
 
         public Player(int unicueNumber, string name, int level)
         {
             _name = name;
             _level = level;
-            IsBan = false;
+            _isBan = false;
+        }
+
+        public void Ban()
+        {
+            _isBan = true;
+        }
+
+        public void Unban()
+        {
+            _isBan = false;
         }
     }
 }

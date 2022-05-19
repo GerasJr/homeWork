@@ -39,15 +39,15 @@ namespace hm42
             }
         }
 
-        void GetCard(int amount)
+        private void GetCard(int amount)
         {
             for(int i = 0; i < amount; i++)
             {
-                _cards.Add(_deck.Cards[_cards.Count]);
+                _deck.GiveCard(_cards);
             }
         }
 
-        void ShowAllCards()
+        private void ShowAllCards()
         {
             for(int i = 0; i < _cards.Count; i++)
             {
@@ -60,7 +60,7 @@ namespace hm42
     {
         private string[] _suits = new string[] { "Пики", "Крести", "Черви", "Буби" };
         private string[] _cardNames = new string[] { "6", "7", "8", "9", "10", "Валет", "Дама", "Король", "Туз" };
-        public List<Card> Cards { get; private set; } = new List<Card>();
+        private List<Card> _cards = new List<Card>();
 
         public void DenoteCards()
         {
@@ -69,9 +69,14 @@ namespace hm42
                 for(int j = 0; j < _suits.Length; j++)
                 {
                     Card card = new Card(_suits[j], _cardNames[i]);
-                    Cards.Add(card);
+                    _cards.Add(card);
                 }
             }
+        }
+
+        public void GiveCard(List<Card> playerDeck)
+        {
+            playerDeck.Add(_cards[playerDeck.Count]);
         }
     }
 

@@ -52,19 +52,27 @@ namespace hm41
             }
         }
 
-        public void AddPlayer()
+        private void AddPlayer()
         {
             Console.WriteLine("Введите имя игрока");
             string name = Console.ReadLine();
             Console.WriteLine("Введите уровень игрока");
-            int level = Convert.ToInt32(Console.ReadLine());
-            Player player = new Player(_minUnicueNumber, name, level);
-            _players.Add(_minUnicueNumber, player);
-            _minUnicueNumber++;
-            Console.WriteLine("Игрок успешно добавлен");
+            string readLevel = Console.ReadLine();
+
+            if(int.TryParse(readLevel, out int level))
+            {
+                Player player = new Player(_minUnicueNumber, name, level);
+                _players.Add(_minUnicueNumber, player);
+                _minUnicueNumber++;
+                Console.WriteLine("Игрок успешно добавлен");
+            }
+            else
+            {
+                Console.WriteLine("Некорректный ввод уровня");
+            }
         }
 
-        public void BanPlayer()
+        private void BanPlayer()
         {
             Console.WriteLine("Введите уникальный номер игрока которого хотите забанить");
             int unicueNumber = Convert.ToInt32(Console.ReadLine());
@@ -77,7 +85,7 @@ namespace hm41
             Console.WriteLine("Игрок успешно забанен");
         }
 
-        public void UnbanPlayer()
+        private void UnbanPlayer()
         {
             Console.WriteLine("Введите уникальный номер игрока которого хотите разбанить");
             int unicueNumber = Convert.ToInt32(Console.ReadLine());
@@ -90,7 +98,7 @@ namespace hm41
             Console.WriteLine("Игрок успешно разбанен");
         }
 
-        public void DeletePlayer()
+        private void DeletePlayer()
         {
             Console.WriteLine("Введите уникальный номер игрока которого хотите удалить");
             int unicueNumber = Convert.ToInt32(Console.ReadLine());
@@ -103,14 +111,14 @@ namespace hm41
             Console.WriteLine("Игрок успешно удален");
         }
 
-        public void ShowAllPlayersInfo()
+        private void ShowAllPlayersInfo()
         {
             foreach(var player in _players)
             {
-                Console.WriteLine("Номер - " + player.Value._unicueNumber);
-                Console.WriteLine("Ник - " + player.Value._name);
-                Console.WriteLine("Уровень - " + player.Value._level);
-                Console.WriteLine("Забанен - " + player.Value._isBan);
+                Console.WriteLine("Номер - " + player.Value.UnicueNumber);
+                Console.WriteLine("Ник - " + player.Value.Name);
+                Console.WriteLine("Уровень - " + player.Value.Level);
+                Console.WriteLine("Забанен - " + player.Value.IsBan);
                 Console.WriteLine();
             }
         }
@@ -118,27 +126,27 @@ namespace hm41
 
     class Player
     {
-        public int _unicueNumber { get; private set; }
-        public string _name { get; private set; }
-        public int _level { get; private set; }
-        public bool _isBan { get; private set; }
+        public int UnicueNumber { get; private set; }
+        public string Name { get; private set; }
+        public int Level { get; private set; }
+        public bool IsBan { get; private set; }
 
         public Player(int unicueNumber, string name, int level)
         {
-            _unicueNumber = unicueNumber;
-            _name = name;
-            _level = level;
-            _isBan = false;
+            UnicueNumber = unicueNumber;
+            Name = name;
+            Level = level;
+            IsBan = false;
         }
 
         public void Ban()
         {
-            _isBan = true;
+            IsBan = true;
         }
 
         public void Unban()
         {
-            _isBan = false;
+            IsBan = false;
         }
     }
 }

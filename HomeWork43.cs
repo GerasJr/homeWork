@@ -14,7 +14,7 @@ namespace hm43
 
     class Library
     {
-        List<Book> _books = new List<Book>();
+        private List<Book> _books = new List<Book>();
 
         public void Work(bool isWork)
         {
@@ -89,11 +89,7 @@ namespace hm43
         {
             foreach(Book book in _books)
             {
-                Console.WriteLine("Номер - " + book.Number);
-                Console.WriteLine("Название - " + book.Title);
-                Console.WriteLine("Автор - " + book.Author);
-                Console.WriteLine("Год релиза - " + book.YearOfRelease);
-                Console.WriteLine();
+                book.OutputInfo(book);
             }
         }
 
@@ -137,11 +133,7 @@ namespace hm43
                 {
                     if (book.Number == userNumber)
                     {
-                        Console.WriteLine("Номер - " + book.Number);
-                        Console.WriteLine("Название - " + book.Title);
-                        Console.WriteLine("Автор - " + book.Author);
-                        Console.WriteLine("Год релиза - " + book.YearOfRelease);
-                        Console.WriteLine();
+                        book.OutputInfo(book);
                     }
                 }
             }
@@ -156,11 +148,7 @@ namespace hm43
             {
                 if (book.Title == userInput)
                 {
-                    Console.WriteLine("Номер - " + book.Number);
-                    Console.WriteLine("Название - " + book.Title);
-                    Console.WriteLine("Автор - " + book.Author);
-                    Console.WriteLine("Год релиза - " + book.YearOfRelease);
-                    Console.WriteLine();
+                    book.OutputInfo(book);
                 }
             }
         }
@@ -174,11 +162,7 @@ namespace hm43
             {
                 if (book.Author == userInput)
                 {
-                    Console.WriteLine("Номер - " + book.Number);
-                    Console.WriteLine("Название - " + book.Title);
-                    Console.WriteLine("Автор - " + book.Author);
-                    Console.WriteLine("Год релиза - " + book.YearOfRelease);
-                    Console.WriteLine();
+                    book.OutputInfo(book);
                 }
             }
         }
@@ -194,11 +178,7 @@ namespace hm43
                 {
                     if (book.YearOfRelease == userYear)
                     {
-                        Console.WriteLine("Номер - " + book.Number);
-                        Console.WriteLine("Название - " + book.Title);
-                        Console.WriteLine("Автор - " + book.Author);
-                        Console.WriteLine("Год релиза - " + book.YearOfRelease);
-                        Console.WriteLine();
+                        book.OutputInfo(book);
                     }
                 }
             }
@@ -218,6 +198,15 @@ namespace hm43
             Title = title;
             Author = author;
             YearOfRelease = yearOfRelease;
+        }
+
+        public void OutputInfo(Book book)
+        {
+            Console.WriteLine("Номер - " + book.Number);
+            Console.WriteLine("Название - " + book.Title);
+            Console.WriteLine("Автор - " + book.Author);
+            Console.WriteLine("Год релиза - " + book.YearOfRelease);
+            Console.WriteLine();
         }
     }
 }

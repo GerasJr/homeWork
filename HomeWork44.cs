@@ -7,16 +7,15 @@ namespace hm44
     {
         static void Main(string[] args)
         {
-            Player player = new Player();
-            player.Trade(true);
+            Magazine magazine = new Magazine();
+            magazine.Trade(true);
         }
     }
 
-    class Player
+    class Magazine
     {
         private Seller _seller = new Seller();
-        private List<Product> _products = new List<Product>();
-        private int _money = 1000;
+        private Player _player = new Player();
 
         public void Trade(bool isTrade)
         {
@@ -26,31 +25,53 @@ namespace hm44
 
             while (isTrade)
             {
-                Console.WriteLine("Ваши деньги - " + _money);
+                Console.WriteLine("Ваши деньги - " + _player.Money);
                 Console.WriteLine();
                 string readInput = Console.ReadLine();
 
                 if (int.TryParse(readInput, out int productIndex))
                 {
-                    _products.Add(_seller.SellProduct(productIndex, ref _money));
+                    if(productIndex < _seller.OutputAllProducts() && _player.Money > _seller.ShowProductCost(productIndex))
+                    {
+                        _player.TakeProduct(_seller.SellProduct(productIndex));
+                    }
+                    else
+                    {
+                        Console.WriteLine("Ошибка");
+                    }
                 }
-                else if(readInput == "show")
+                else if (readInput == "show")
                 {
                     _seller.ShowAllProducts();
                 }
-                else if(readInput == "myInv")
+                else if (readInput == "myInv")
                 {
-                    foreach(Product product in _products)
-                    {
-                        Console.WriteLine(product.Name);
-                    }
-
-                    Console.WriteLine();
+                    _player.ShowInventory();
                 }
                 else
                 {
-                    Console.WriteLine("Некорректный ввод");
+                    Console.WriteLine("Некорректый ввод");
                 }
+            }
+        }
+    }
+
+    class Player
+    {
+        private List<Product> _products = new List<Product>();
+        public int Money { get; private set; } = 1000;
+
+        public void TakeProduct(Product product)
+        {
+            Money -= product.Cost;
+            _products.Add(product);
+        }
+
+        public void ShowInventory()
+        {
+            foreach(Product product in _products)
+            {
+                Console.WriteLine(product.Name);
             }
         }
     }
@@ -68,28 +89,16 @@ namespace hm44
             _products.Add(new Product("Сахар белый", 100));
         }
 
-        public Product SellProduct(int productIndex, ref int playerMoney)
+        public Product SellProduct(int productIndex)
         {
-            if (productIndex < _products.Count)
-            {
-                if (playerMoney > _products[productIndex].Cost)
-                {
-                    Product productForSale = _products[productIndex];
-                    playerMoney -= _products[productIndex].Cost;
-                    _products.RemoveAt(productIndex);
-                    return productForSale;
-                }
-                else
-                {
-                    Console.WriteLine("Вы не можете себе это позволить");
-                    return null;
-                }
-            }
-            else
-            {
-                Console.WriteLine("Некорректный ввод");
-                return null;
-            }
+            Product productForSale = _products[productIndex];
+            _products.RemoveAt(productIndex);
+            return productForSale;
+        }
+
+        public int ShowProductCost(int productIndex)
+        {
+            return _products[productIndex].Cost;
         }
 
         public void ShowAllProducts()
@@ -98,6 +107,11 @@ namespace hm44
             {
                 Console.WriteLine($"{i}: {_products[i].Name} - {_products[i].Cost} рублей");
             }
+        }
+
+        public int OutputAllProducts()
+        {
+            return _products.Count;
         }
     }
 

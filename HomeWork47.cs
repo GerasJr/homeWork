@@ -57,7 +57,7 @@ namespace hm47
 
     class Client
     {
-        private List<int> _products = new List<int>(); // Каждый продукт хранит в себе их int стоимость.
+        private List<Product> _products = new List<Product>();
         public int Money { get; private set; }
 
         public Client()
@@ -65,14 +65,13 @@ namespace hm47
             Random random = new Random();
             int minMoney = 3000;
             int maxMoney = 15000;
-            int maxCost = 5000;
             int maxProducts = 15;
 
             Money = random.Next(minMoney, maxMoney);
 
             for(int i = 0; i < random.Next(0, maxProducts); i++)
             {
-                _products.Add(random.Next(0, maxCost));
+                _products.Add(new Product());
             }
         }
 
@@ -80,9 +79,9 @@ namespace hm47
         {
             int productsCost = 0;
 
-            foreach(int product in _products)
+            foreach(Product product in _products)
             {
-                productsCost += product;
+                productsCost += product.Cost;
             }
 
             return productsCost;
@@ -93,6 +92,20 @@ namespace hm47
             Random random = new Random();
 
             _products.RemoveAt(random.Next(0, _products.Count));
+        }
+    }
+
+    class Product
+    {
+        public int Cost { get; private set; }
+
+        public Product()
+        {
+            Random random = new Random();
+            int minCost = 5;
+            int maxCost = 5000;
+
+            Cost = random.Next(minCost, maxCost);
         }
     }
 }

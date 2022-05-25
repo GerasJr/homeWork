@@ -96,22 +96,24 @@ namespace hm49
 
     class Fish
     {
+        private int _maxAge;
         public string Name { get; private set; }
-        public int Age { get; private set; } = -1;
-        public bool IsAlive { get; private set; } = true;
+        public int Age { get; private set; }
+        public bool IsAlive { get; private set; }
 
         public Fish(string name)
         {
             Name = name;
+            Age = -1;
+            IsAlive = true;
+            _maxAge = 10;
         }
 
         public void Growing()
         {
-            int maxAge = 10;
-
             Age++;
 
-            if (Age >= maxAge)
+            if (Age >= _maxAge)
             {
                 IsAlive = false;
             }

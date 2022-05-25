@@ -9,22 +9,44 @@ namespace hm48
         {
             Eldia eldia = new Eldia();
             Paradise paradise = new Paradise();
+            BattleField battleField = new BattleField();
 
-            while(eldia.GetCorpsesCount() != eldia.GetSolidersCount() && paradise.GetCorpsesCount() != paradise.GetSolidersCount())
+            battleField.Battle(eldia, paradise);
+        }
+    }
+
+    class BattleField
+    {
+        public void Battle(Squad firstSquad, Squad secondSquad)
+        {
+            ShowBattleInfo();
+            Console.ReadLine();
+            Console.Clear();
+
+            while (firstSquad.GetCorpsesCount() != firstSquad.GetSolidersCount() && secondSquad.GetCorpsesCount() != secondSquad.GetSolidersCount())
             {
+                for (int i = 0; i < firstSquad.GetSolidersCount(); i++)
+                {
+                    firstSquad.SoliderPreparation(i, secondSquad);
+                }
+
+                for (int i = 0; i < secondSquad.GetSolidersCount(); i++)
+                {
+                    secondSquad.SoliderPreparation(i, firstSquad);
+                }
+
                 ShowBattleInfo();
-                eldia.Attack(paradise);
-                paradise.Attack(eldia);
-                ShowBattleInfo();
+                Console.ReadLine();
+                Console.Clear();
             }
 
-            if (eldia.GetCorpsesCount() < eldia.GetSolidersCount())
+            if (firstSquad.GetCorpsesCount() < firstSquad.GetSolidersCount())
             {
-                Console.WriteLine($"Победила {eldia.Country}");
+                Console.WriteLine($"Победил(а) {firstSquad.Country}");
             }
-            else if (paradise.GetCorpsesCount() < paradise.GetSolidersCount())
+            else if (secondSquad.GetCorpsesCount() < secondSquad.GetSolidersCount())
             {
-                Console.WriteLine($"Победил {paradise.Country}");
+                Console.WriteLine($"Победил(а) {secondSquad.Country}");
             }
             else
             {
@@ -33,13 +55,10 @@ namespace hm48
 
             void ShowBattleInfo()
             {
-                Console.Clear();
-                Console.WriteLine(eldia.Country);
-                eldia.ShowSolidersInfo();
-                Console.WriteLine();
-                Console.WriteLine(paradise.Country);
-                paradise.ShowSolidersInfo();
-                Console.ReadLine();
+                Console.WriteLine(firstSquad.Country);
+                firstSquad.ShowSolidersInfo();
+                Console.WriteLine(secondSquad.Country);
+                secondSquad.ShowSolidersInfo();
             }
         }
     }
@@ -49,11 +68,71 @@ namespace hm48
         public string Country { get; protected set; }
         protected List<Solider> Soliders = new List<Solider>();
 
+        public Solider GetSolider()
+        {
+            Random random = new Random();
+            int randomIndex = 0;
+            bool isFind = false;
+
+            while(isFind == false)
+            {
+                randomIndex = random.Next(0, Soliders.Count);
+
+                if(Soliders[randomIndex].IsDead == false)
+                {
+                    isFind = true;
+                }
+            }
+
+            return Soliders[randomIndex];
+        }
+
+        public void SoliderPreparation(int index, Squad squad)
+        {
+            Soliders[index].Aiming(squad.GetSolider());
+        }
+
+        public void ShowSolidersInfo()
+        {
+            for(int i = 0; i < Soliders.Count; i++)
+            {
+                Console.WriteLine($"{i + 1} - {Soliders[i].ClassName}:");
+                if (Soliders[i].IsDead == false)
+                {
+                    Console.WriteLine($"Здоровье - {Soliders[i].Health}");
+                }
+                else
+                {
+                    Console.WriteLine("Мертв");
+                }
+            }
+        }
+
+        public int GetCorpsesCount()
+        {
+            int corpsesAmount = 0;
+
+            foreach(Solider solider in Soliders)
+            {
+                if (solider.IsDead == true)
+                {
+                    corpsesAmount++;
+                }
+            }
+
+            return corpsesAmount;
+        }
+
+        public int GetSolidersCount()
+        {
+            return Soliders.Count;
+        }
+
         protected void CreateSquad(string country, int stormtrooperCount, int machineGunnerCount, int sniperCount, int rocketManCount)
         {
             Country = country;
 
-            for(int i = 0; i < stormtrooperCount; i++)
+            for (int i = 0; i < stormtrooperCount; i++)
             {
                 Soliders.Add(new Stormtrooper());
             }
@@ -72,72 +151,6 @@ namespace hm48
             {
                 Soliders.Add(new RocketMan());
             }
-        }
-
-        public Solider GetSolider()
-        {
-            Random random = new Random();
-            int randomIndex = 0;
-            bool isFind = false;
-
-            while(isFind == false)
-            {
-                randomIndex = random.Next(0, Soliders.Count);
-
-                if(Soliders[randomIndex].isDead == false)
-                {
-                    isFind = true;
-                }
-            }
-
-            return Soliders[randomIndex];
-        }
-
-        public void Attack(Squad squad)
-        {
-            for (int i = 0; i < Soliders.Count; i++)
-            {
-                for (int j = 0; j < Soliders[i].Weapon.RadiusDefeat; j++)
-                {
-                    Soliders[i].Shoot(squad.GetSolider());
-                }
-            }
-        }
-
-        public void ShowSolidersInfo()
-        {
-            for(int i = 0; i < Soliders.Count; i++)
-            {
-                Console.WriteLine($"{i + 1} - {Soliders[i].ClassName}:");
-                if (Soliders[i].isDead == false)
-                {
-                    Console.WriteLine($"Здоровье - {Soliders[i].Health}");
-                }
-                else
-                {
-                    Console.WriteLine("Мертв");
-                }
-            }
-        }
-
-        public int GetCorpsesCount()
-        {
-            int corpsesAmount = 0;
-
-            foreach(Solider solider in Soliders)
-            {
-                if (solider.isDead == true)
-                {
-                    corpsesAmount++;
-                }
-            }
-
-            return corpsesAmount;
-        }
-
-        public int GetSolidersCount()
-        {
-            return Soliders.Count;
         }
     }
 
@@ -162,8 +175,8 @@ namespace hm48
         public string ClassName { get; private set; }
         public int Health { get; private set; }
         public int Armor { get; private set; }
+        public bool IsDead { get; private set; } = false;
         public Weapon Weapon { get; private set; }
-        public bool isDead { get; private set; } = false;
 
         protected void CreateSolider(string className, int armor, Weapon weapon)
         {
@@ -177,7 +190,7 @@ namespace hm48
             Weapon = weapon;
         }
 
-        public void Shoot(Solider solider)
+        public void Aiming(Solider solider)
         {
             int percentageConvert = 200;
 
@@ -188,7 +201,7 @@ namespace hm48
             }
             else
             {
-                isDead = true;
+                IsDead = true;
             }
         }
     }

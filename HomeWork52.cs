@@ -24,6 +24,7 @@ namespace hm52
             {
                 Console.WriteLine("Добавить преступника - 1");
                 Console.WriteLine("Поиск в базе данных - 2");
+                Console.WriteLine("Посадить преступника - 3");
 
                 switch (Console.ReadLine())
                 {
@@ -32,6 +33,9 @@ namespace hm52
                         break;
                     case "2":
                         SearchCriminals();
+                        break;
+                    case "3":
+                        PutInJail();
                         break;
                     default:
                         Console.WriteLine("Ошибка, некорректный ввод");
@@ -64,34 +68,59 @@ namespace hm52
             }
         }
 
-        private void SearchCriminals()
+        private void PutInJail()
         {
-            Console.WriteLine("Введите ФИО, рост, вес, или национальность преступника");
+            List<Criminal> criminals = SearchCriminals();
+            Console.WriteLine("Выберете номер преступника");
             string userInput = Console.ReadLine();
 
-            if (int.TryParse(userInput, out int userInt))
+            if(int.TryParse(userInput, out int number) && number >= 0 && number < criminals.Count)
             {
-                var filtredCriminals = from Criminal criminal in _criminals
-                                       where criminal.Height == userInt || criminal.Weight == userInt
-                                       select criminal;
-
-                foreach (Criminal criminal in filtredCriminals)
-                {
-                    ShowCriminalInfo(criminal);
-                }
+                criminals[number].GoToJail();
+                Console.WriteLine($"Преступник {criminals[number].FullName}");
+                Console.WriteLine("Посажен в тюрьму");
             }
             else
             {
-                var filtredCriminals = from Criminal criminal in _criminals
-                                       where criminal.FullName.ToLower().StartsWith(userInput.ToLower()) ||
-                                             criminal.Nationality.ToLower().StartsWith(userInput.ToLower())
-                                       select criminal;
-
-                foreach (Criminal criminal in filtredCriminals)
-                {
-                    ShowCriminalInfo(criminal);
-                }
+                Console.WriteLine("Ошибка ввода");
             }
+        }
+
+        private List<Criminal> SearchCriminals()
+        {
+            Console.WriteLine("Введите ФИО, рост, вес, или национальность преступника");
+            string userInput = Console.ReadLine();
+            List<Criminal> criminals = new List<Criminal>();
+            var filtredCriminals = from Criminal criminal in _criminals
+                                   select criminal;
+
+            if (int.TryParse(userInput, out int userInt))
+            {
+                filtredCriminals = from Criminal criminal in _criminals
+                                       where criminal.Height == userInt || criminal.Weight == userInt && criminal.IsPrisoner == false
+                                       select criminal;
+            }
+            else
+            {
+                filtredCriminals = from Criminal criminal in _criminals
+                                       where criminal.FullName.ToLower().StartsWith(userInput.ToLower()) ||
+                                             criminal.Nationality.ToLower().StartsWith(userInput.ToLower()) && criminal.IsPrisoner == false
+                                       select criminal;
+            }
+
+            foreach (Criminal criminal in filtredCriminals)
+            {
+                criminals.Add(criminal);
+            }
+
+            for(int i = 0; i < criminals.Count; i++)
+            {
+                Console.Write($"{i}: ");
+                ShowCriminalInfo(criminals[i]);
+                Console.WriteLine();
+            }
+
+            return criminals;
         }
 
         private void ShowCriminalInfo(Criminal criminal)
@@ -100,7 +129,6 @@ namespace hm52
             Console.WriteLine($"Рост - {criminal.Height}");
             Console.WriteLine($"Вес - {criminal.Weight}");
             Console.WriteLine($"Национальность - {criminal.Nationality}");
-            Console.WriteLine();
         }
     }
 
@@ -119,6 +147,11 @@ namespace hm52
             Weight = weight;
             Nationality = nationality;
             IsPrisoner = false;
+        }
+
+        public void GoToJail()
+        {
+            IsPrisoner = true;
         }
     }
 }

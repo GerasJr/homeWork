@@ -31,10 +31,12 @@ public class EnemySpawner : MonoBehaviour
 
     private IEnumerator Spawn()
     {
+        var waitForSeconds = new WaitForSeconds(_secondsInterval);
+
         for(int i = 0; i < _spawnPoints.Length; i++)
         {
-            Instantiate(_enemy, _spawnPoints[i].position, Quaternion.identity);
-            yield return new WaitForSeconds(_secondsInterval);
+            Instantiate(_enemy, _spawnPoints[i].position, Quaternion.identity); 
+            yield return waitForSeconds;
         }
     }
 }

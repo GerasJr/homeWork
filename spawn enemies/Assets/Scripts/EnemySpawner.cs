@@ -6,6 +6,7 @@ public class EnemySpawner : MonoBehaviour
 {
     [SerializeField] private GameObject _enemy;
     [SerializeField] private Transform[] _spawnPoints;
+
     private int _secondsInterval = 2;
 
     private void Start()
@@ -25,15 +26,15 @@ public class EnemySpawner : MonoBehaviour
             _spawnPoints[randomIndex] = tempPoint;
         }
 
-        StartCoroutine(Spawner());
+        StartCoroutine(Spawn());
     }
 
-    IEnumerator Spawner()
+    private IEnumerator Spawn()
     {
         for(int i = 0; i < _spawnPoints.Length; i++)
         {
             Instantiate(_enemy, _spawnPoints[i].position, Quaternion.identity);
-            yield return new WaitForSecondsRealtime(_secondsInterval);
+            yield return new WaitForSeconds(_secondsInterval);
         }
     }
 }

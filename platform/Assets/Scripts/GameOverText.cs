@@ -11,6 +11,8 @@ public class GameOverText : MonoBehaviour
     [SerializeField] private Color _colorWin;
     [SerializeField] private Color _colorLose;
 
+    private float _animationSpeed = 3f;
+
     private void Start()
     {
         _text.text = "";
@@ -18,13 +20,13 @@ public class GameOverText : MonoBehaviour
 
     public void WinMessage()
     {
-        _text.DOText("You win!", 3).SetRelative();
-        _text.DOColor(_colorWin, 3);
+        _text.DOText("You win!", _animationSpeed).SetRelative();
+        _text.DOColor(_colorWin, _animationSpeed);
     }
 
     public void LoseMessage()
     {
-        _text.DOText("You lose", 3).SetRelative();
-        _text.DOColor(_colorLose, 3);
+        _text.DOText("You lose", _animationSpeed).SetRelative();
+        _text.DOColor(_colorLose, _animationSpeed);
     }
 }

@@ -13,6 +13,7 @@ public class PlayerMoving : MonoBehaviour
     private Vector2 _jumpVector;
     private float _directionMove;
     private bool _isGrounded = false;
+    private const string _isRunAnimation = "IsRun";
 
     private void Start()
     {
@@ -42,11 +43,11 @@ public class PlayerMoving : MonoBehaviour
 
         if (_directionMove != 0 && _isGrounded == true)
         {
-            _animator.SetBool("IsRun", true);
+            _animator.SetBool(_isRunAnimation, true);
         }
         else
         {
-            _animator.SetBool("IsRun", false);
+            _animator.SetBool(_isRunAnimation, false);
         }
     }
 

@@ -7,9 +7,9 @@ public class Enemy : MonoBehaviour
 {
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.GetComponent<Player>())
+        if (collision.gameObject.TryGetComponent<Player>(out Player player))
         {
-            collision.gameObject.GetComponent<Player>().Die();
+            player.Die();
         }
     }
 }

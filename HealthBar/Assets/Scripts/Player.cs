@@ -1,12 +1,16 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
+[RequireComponent(typeof(BoxCollider2D))]
 public class Player : MonoBehaviour
 {
-    private float _health = 100;
+    [SerializeField] private UnityEvent _healthChanged;
+
+    public float Health { get; private set; } = 100;
     private float _maxHealth = 100;
-    private float _healthChangeValue = 10;
+    private float _minHealth = 0;
     private BoxCollider2D _boxCollider2D;
     private bool _isDead = false;
 
@@ -21,31 +25,26 @@ public class Player : MonoBehaviour
         _isDead = true;
     }
 
-    public void Heal()
+    public void Heal(float value)
     {
-        if (_health <= _maxHealth - _healthChangeValue)
+        if (_isDead == false)
         {
-            _health += _healthChangeValue;
+            Health = Mathf.Clamp(Health + value, _minHealth, _maxHealth);
+            _healthChanged?.Invoke();
         }
     }
 
-    public void Damage()
+    public void Damage(float value)
     {
-        _health -= _healthChangeValue;
-
-        if(_health <= 0)
+        if(_isDead == false)
         {
-            Die();
+            Health = Mathf.Clamp(Health - value, _minHealth, _maxHealth);
+            _healthChanged?.Invoke();
+
+            if (Health == _minHealth)
+            {
+                Die();
+            }
         }
-    }
-
-    public float ReturnHealth()
-    {
-        return _health;
-    }
-
-    public bool ReturnIsDead()
-    {
-        return _isDead;
     }
 }
